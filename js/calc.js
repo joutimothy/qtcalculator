@@ -3,16 +3,26 @@ function onCalc(){
 	let sex = document.getElementById("inputSex").value;
 	let hr = document.getElementById("inputHr").value;
 	let qt = document.getElementById("inputQt").value;
-	let qrs = document.getElementById("inputQrs").value;
-    let res = caclulation(age, sex, hr, qrs, qt); 
+	let qrs = document.getElementById("inputQrs").value; 
+    let qrsWpw = document.getElementById("inputQrsWpw").value;
+    let res = caclulation(age, sex, hr, qrs, qrsWpw, qt); 
     document.getElementById("outQt").innerHTML = res.spl;
     document.getElementById("outQtQrs").innerHTML = res.splqrs;
+    document.getElementById("outQtLBBB").innerHTML = res.splbbb;
+    document.getElementById("outQtPR").innerHTML = res.splPr;
+    document.getElementById("outQtWPW").innerHTML = res.splWpw;
 }
 
 
-function caclulation(age, sex, hr, qrs, qt) {
-    let qtcspl = "_ _";
-    let qtcspl_qrs = "_ _";
+function caclulation(age, sex, hr, qrs, qrsWpw, qt) {
+    // init {spl: qtcspl, splqrs: qtcspl_qrs, splbbb: qtBBB, splPr: qtPR, splWpw: qtWpw}
+    let result = {};
+    result.spl = "_ _";
+    result.splqrs = "_ _";
+    result.splbbb = "_ _";
+    result.splPr = "_ _";
+    result.splWpw = "_ _";
+
     // use HR to calculate a bunch of vars, V-> AG
     let V =(hr-35)/(61-35);
     let W =(hr-35)/(67-35);
@@ -55,29 +65,33 @@ function caclulation(age, sex, hr, qrs, qt) {
         QT_calc = 523.29-(76.94*B1)-(101.59*B2)-(130.81*B3)-(144.79*B4)-(196.76*B5)-(231.01*B6)-(247.84*B7)+0.18*age;
     }
     if (!qt) {
-        return {spl: qtcspl, splqrs: qtcspl_qrs};
+        return result;
     }
     // set qtcspl
     if (qt === "") {
-        qtcspl = "_ _";
+        result.spl = "_ _";
     } else if (hr > 155 || hr < 35) {
-        qtcspl = "Outside 35-155bpm range";
+        result.spl = "Outside 35-155bpm range";
     } else {
-        qtcspl = (417.7246+(qt - QT_calc)).toFixed(3);
+        result.spl = (417.7246+(qt - QT_calc)).toFixed(3);
     }
     // set qtcspl-qrs
     if (qrs === "") {
-        qtcspl_qrs = "_ _";
+        result.splqrs = "_ _";
     } else if (hr > 155 || hr < 35) {
-        qtcspl_qrs = "Outside 35-155bpm range";
+        result.splqrs = "Outside 35-155bpm range";
     } else {
-        qtcspl_qrs = (qtcspl - qrs).toFixed(3);
+        result.splqrs = (result.spl - qrs).toFixed(3);
     }
-    // console.log('QT_calc');
-    // console.log(QT_calc);
-    // console.log ('qtcspl');
-    // console.log (qtcspl);
-    // console.log('qtcspl_qrs');
-    // console.log(qtcspl_qrs);
-    return {spl: qtcspl, splqrs: qtcspl_qrs};
+
+    if (result.spl && qrs) {
+        result.splbbb = result.spl*0.945 - 26;
+        result.splPr = result.spl - (qrs*0.5);
+    }
+
+    if (result.spl && qrsWpw) {
+        result.splWpw = result.spl - 0.462*qrsWpw + 18.26;
+    }
+        
+    return result;
 }

@@ -121,11 +121,17 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputQrs" class="col-sm-2 col-form-label">QRS Duration</label>
+                            <label for="inputQrs" class="col-sm-2 col-form-label">QRS Duration<br>(BBB or VP) </label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" id="inputQrs" placeholder="QRS Duration" oninput="onCalc()">
+                                <input type="email" class="form-control" id="inputQrs" placeholder="QRS Duration for BBB or Ventricular Pacing" oninput="onCalc()">
                             </div>
                         </div>
+                        <div class="form-group row">
+                          <label for="inputQrsWpw" class="col-sm-2 col-form-label">QRS Duration<br>(WPW or pre-excite) </label>
+                          <div class="col-sm-10">
+                              <input type="email" class="form-control" id="inputQrsWpw" placeholder="QRS Duration for WPW or pre excitation" oninput="onCalc()">
+                          </div>
+                      </div>
                     </form>
                 </div>
             </div>
@@ -137,10 +143,20 @@
                     <h3 class="t1">Result</h3>
                     <div class="alert alert-success" role="alert">
                         <h3 class="alert-heading">
-                            <strong>QTcSPL is <span class="result-text" type="text" id="outQt">___</span> ms</strong><br>
+                            <strong>QTcSPL is <span class="result-text" type="text" id="outQt">___</span> ms</strong>
+                            <br>
                             <br>
                             <strong>QTcSPL-QRS is <span class="result-text" type="text" id="outQtQrs">___</span> ms</strong>
-                        </h4>
+                            <br>
+                            <br>
+                            <strong>LBBB or RBBB : QTcRBK is <span class="result-text" type="text" id="outQtLBBB">___</span> ms</strong>
+                            <br>
+                            <br>
+                            <strong>Paced Rhythm : QTcRBK is <span class="result-text" type="text" id="outQtPR">___</span> ms</strong>
+                            <br>
+                            <br>
+                            <strong>WPW : QTcRBK is <span class="result-text" type="text" id="outQtWPW">___</span> ms</strong>
+                          </h3>
                         
                     </div>
                 </div>

@@ -79,8 +79,8 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="section-heading">
-                        <h2 class="sec-head">QTcSpline Batch Converter</h2>
-                        <p>Measure the heart rate and QT interval. If there is a bundle branch block, ventricular pacing or WPW add the QRS duration.</p>
+                        <h2 class="sec-head">Rabkin QTcSpline Calculator</h2>
+                        <p>Measure the heart rate and QT interval. If there is a ventricular pacing or WPW add the QRS duration.</p>
                         <hr>
                         <br>
                     </div>
@@ -115,21 +115,27 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputQt" class="col-sm-2 col-form-label">QT Interval</label>
+                            <label for="inputQtBbb" class="col-sm-2 col-form-label">QT Interval For BBB</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" id="inputQt" placeholder="QT Interval" oninput="onCalc()">
+                                <input type="email" class="form-control" id="inputQtBbb" placeholder="QT Interval BBB" oninput="onCalc()">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputQrs" class="col-sm-2 col-form-label">QRS Duration<br>(BBB or VP) </label>
-                            <div class="col-sm-10">
-                                <input type="email" class="form-control" id="inputQrs" placeholder="QRS Duration for BBB or Ventricular Pacing" oninput="onCalc()">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                          <label for="inputQrsWpw" class="col-sm-2 col-form-label">QRS Duration<br>(WPW or pre-excite) </label>
+                          <label for="inputQtVp" class="col-sm-2 col-form-label">QT Interval For Ventricular pacing</label>
                           <div class="col-sm-10">
-                              <input type="email" class="form-control" id="inputQrsWpw" placeholder="QRS Duration for WPW or pre excitation" oninput="onCalc()">
+                              <input type="email" class="form-control" id="inputQtVp" placeholder="QT Interval VP" oninput="onCalc()">
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inputQtWpw" class="col-sm-2 col-form-label">QT Interval For WPW</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="inputQtWpw" placeholder="QT Interval WPW" oninput="onCalc()">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                          <label for="inputQrs" class="col-sm-2 col-form-label">QRS Duration</label>
+                          <div class="col-sm-10">
+                              <input type="email" class="form-control" id="inputQrs" placeholder="QRS Duration" oninput="onCalc()">
                           </div>
                       </div>
                     </form>
@@ -143,10 +149,8 @@
                     <h3 class="t1">Result</h3>
                     <div class="alert alert-success" role="alert">
                         <h3 class="alert-heading">
-                            <strong>QTcSPL is <span class="result-text" type="text" id="outQt">___</span> ms</strong>
-                            <br>
-                            <br>
-                            <strong>QTcSPL-QRS is <span class="result-text" type="text" id="outQtQrs">___</span> ms</strong>
+                            
+                            <strong>QTcRBK is <span class="result-text" type="text" id="outQt">___</span> ms</strong>
                             <br>
                             <br>
                             <strong>LBBB or RBBB : QTcRBK is <span class="result-text" type="text" id="outQtLBBB">___</span> ms</strong>
@@ -156,6 +160,9 @@
                             <br>
                             <br>
                             <strong>WPW : QTcRBK is <span class="result-text" type="text" id="outQtWPW">___</span> ms</strong>
+                            <br>
+                            <br>
+                            <strong><span class="result-text" type="text" id="errMsg"></span></strong>
                           </h3>
                         
                     </div>
@@ -222,6 +229,20 @@
                         <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
                           <div class="card-body">
                             Kandiah J, Rabkin S. Assessment of the QT Interval in WPW: A New Approach to Calculating the QT Interval in Pre-excitation. Ann Hear. 2021;5:DOI: 10.36959/652/400. 
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header" id="headingSix">
+                          <h5 class="mb-0">
+                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                Reference 5
+                            </button>
+                          </h5>
+                        </div>
+                        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+                          <div class="card-body">
+                            Rabkin SW Assessment of the QT Interval in Right Bundle Branch Block 
                           </div>
                         </div>
                       </div>

@@ -1,4 +1,4 @@
-const EMPTYRES = EMPTYRES;
+const EMPTYRES = "_ _";
 
 function onCalc(){
     let age = document.getElementById("inputAge").value;

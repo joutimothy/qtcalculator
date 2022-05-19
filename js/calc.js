@@ -4,13 +4,14 @@ function onCalc(){
     let age = document.getElementById("inputAge").value;
 	let sex = document.getElementById("inputSex").value;
 	let hr = document.getElementById("inputHr").value;
+    let qt = document.getElementById("inputQt").value;
 	let qtBBB = document.getElementById("inputQtBbb").value;
     let qtVp = document.getElementById("inputQtVp").value;
     let qtWpw = document.getElementById("inputQtWpw").value;
-	let qrs = document.getElementById("inputQrs").value; 
+	let qrs = document.getElementById("inputQrs").value;  
 
     if (hr > 155 || hr < 35) {
-        document.getElementById("errMsg").innerHTML = 'Outside 35-155bpm range';
+        document.getElementById("errMsg").innerHTML = !hr? 'Please input heart rate' : 'Outside 35-155bpm range';
         // reset all output
         document.getElementById("outQt").innerHTML = EMPTYRES;
         document.getElementById("outQtLBBB").innerHTML = EMPTYRES;
@@ -18,23 +19,23 @@ function onCalc(){
         document.getElementById("outQtWPW").innerHTML = EMPTYRES;
     } else {
         // Calculate qtcRbk using different QT value
-        let qtcrbk = caclulation(age, sex, hr, qtBBB);
+        let qtcrbk = caclulation(age, sex, hr, qt);
         let qtcrbkBBB = caclulation(age, sex, hr, qtBBB); 
         let qtcrbkPR= caclulation(age, sex, hr, qtVp);
         let qtcrbkWPW = caclulation(age, sex, hr, qtWpw);
         
         // setting HTML elements
-        document.getElementById("outQt").innerHTML = qtcrbk;
-        document.getElementById("outQtLBBB").innerHTML = 0.945*qtcrbkBBB - 26;
-        document.getElementById("outQtPR").innerHTML = qrs? qtcrbkPR - qrs*0.5 : 'Please input QRS';
-        document.getElementById("outQtWPW").innerHTML = qrs? qtcrbkWPW - 0.462*qrs + 18.26 : 'Please input QRS';
+        document.getElementById("outQt").innerHTML = qtcrbk? qtcrbk.toFixed(1) : 'Please input QT';;
+        document.getElementById("outQtLBBB").innerHTML = qtcrbkBBB? (0.945*qtcrbkBBB - 26).toFixed(1) : 'Please input QT for BBB';
+        document.getElementById("outQtPR").innerHTML = qtcrbkPR? (qrs? (qtcrbkPR - qrs*0.5).toFixed(1): 'Please input QRS'): 'Please input QT for VP';
+        document.getElementById("outQtWPW").innerHTML = qtcrbkWPW? (qrs? (qtcrbkWPW - 0.462*qrs - 18.26).toFixed(1): 'Please input QRS'): 'Please input QT for WPW';
         document.getElementById("errMsg").innerHTML = '';
     }
 }
 
 // get QtcRbk based on different kind of QT input
 function caclulation(age, sex, hr, qt) {
-    let result = EMPTYRES;
+    let result = "";
 
     // use HR to calculate a bunch of vars, V-> AG
     let V =(hr-35)/(61-35);
@@ -77,14 +78,12 @@ function caclulation(age, sex, hr, qt) {
     } else if (sex === "Male") {
         QT_calc = 523.29-(76.94*B1)-(101.59*B2)-(130.81*B3)-(144.79*B4)-(196.76*B5)-(231.01*B6)-(247.84*B7)+0.18*age;
     }
-    if (!qt) {
-        return result;
-    }
+
     // set qtcspl
-    if (qt === "") {
-        result = EMPTYRES;
+    if (qt && age && hr) {
+        result = 417.7246+(qt - QT_calc)
     } else {
-        result = (417.7246+(qt - QT_calc)).toFixed(3);
+        return result
     }
     // set qtcspl-qrs
     // if (qrs === "") {

@@ -1,4 +1,5 @@
 const EMPTYRES = "_ _";
+const DECIMAL_PLACE = 0;
 
 function onCalc(){
     let age = document.getElementById("inputAge").value;
@@ -25,10 +26,10 @@ function onCalc(){
         let qtcrbkWPW = caclulation(age, sex, hr, qtWpw);
         
         // setting HTML elements
-        document.getElementById("outQt").innerHTML = qtcrbk? qtcrbk.toFixed(1) : 'Please input QT';;
-        document.getElementById("outQtLBBB").innerHTML = qtcrbkBBB? (0.945*qtcrbkBBB - 26).toFixed(1) : 'Please input QT for BBB';
-        document.getElementById("outQtPR").innerHTML = qtcrbkPR? (qrs? (qtcrbkPR - qrs*0.5).toFixed(1): 'Please input QRS'): 'Please input QT for VP';
-        document.getElementById("outQtWPW").innerHTML = qtcrbkWPW? (qrs? (qtcrbkWPW - 0.462*qrs - 18.26).toFixed(1): 'Please input QRS'): 'Please input QT for WPW';
+        document.getElementById("outQt").innerHTML = qtcrbk? qtcrbk.toFixed(DECIMAL_PLACE) : 'Please input QT';;
+        document.getElementById("outQtLBBB").innerHTML = qtcrbkBBB? (0.945*qtcrbkBBB - 26).toFixed(DECIMAL_PLACE) : 'Please input QT for BBB';
+        document.getElementById("outQtPR").innerHTML = qtcrbkPR? (qrs? (qtcrbkPR - qrs*0.5).toFixed(DECIMAL_PLACE): 'Please input QRS'): 'Please input QT for VP';
+        document.getElementById("outQtWPW").innerHTML = qtcrbkWPW? (qrs? (qtcrbkWPW - 0.462*qrs - 18.26).toFixed(DECIMAL_PLACE): 'Please input QRS'): 'Please input QT for WPW';
         document.getElementById("errMsg").innerHTML = '';
     }
 }
